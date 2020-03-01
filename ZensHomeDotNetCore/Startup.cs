@@ -31,8 +31,9 @@ namespace ZensHomeDotNetCore
            .AddJsonFile("appsettings.json");
 
             var configuration = builder.Build();
-            services.AddScoped<MyDbContext>(_ => new MyDbContext(configuration.GetConnectionString("MyDb")));
-            services.AddScoped<IElectricCounterRepository, ElectricCounterRepository>();
+            var dbContext = new MyDbContext(configuration.GetConnectionString("MyDb"));
+            services.AddScoped<MyDbContext>(_ => dbContext);
+            //services.AddScoped<ElectricCounterRepository>(dbContext);
             services.AddScoped<IVillageRepository, VillageRepository>();
             services.AddControllersWithViews();
             services.AddDbContext<MyDbContext>(options =>

@@ -22,9 +22,17 @@ namespace ZensHomeDotNetCore.Controllers
         [HttpGet("getConsumptionReport")]
         public IActionResult PrintConsumptionReport()
         {
+            mVillageRepository.BookingVillageConsumption(0, 0);
             mVillageRepository.GetAllVillage();
             return Ok(mVillageRepository.GetAllVillage());
         }
 
+        public IActionResult PostElecticityConsumption()
+        {
+            //Call external api to get village id
+
+            //Post consumption entries to DB with current time and amount
+            return Ok();
+        }
     }
 }

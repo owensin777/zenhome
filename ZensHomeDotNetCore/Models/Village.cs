@@ -12,5 +12,6 @@ namespace ZensHomeDotNetCore.Models
         public string Name{ get; set;}
         public double ElectricityConsumption { get; set; }
         public List<ElectricCounter> ElectricCounter { get; set; }
+        public DateTime Timestamp { get; set; }
     }
 }
