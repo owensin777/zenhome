@@ -31,13 +31,14 @@ namespace ZensHomeDotNetCore
            .AddJsonFile("appsettings.json");
 
             var configuration = builder.Build();
-            var dbContext = new MyDbContext(configuration.GetConnectionString("MyDb"));
-            services.AddScoped<MyDbContext>(_ => dbContext);
-            //services.AddScoped<ElectricCounterRepository>(dbContext);
-            services.AddScoped<IVillageRepository, VillageRepository>();
+            //var dbContext = new MyDbContext(configuration.GetConnectionString("MyDb"));
+            //services.AddScoped<MyDbContext>(_ => dbContext);
+            var dbConnectionString = configuration.GetConnectionString("MyDb");
+            services.AddScoped<string>(_ => dbConnectionString);
+            services.AddScoped<IVillageConsumptionRepository, VillageConsumptionRepository>();
             services.AddControllersWithViews();
             services.AddDbContext<MyDbContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("MyDb")));
+                options.UseNpgsql(dbConnectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

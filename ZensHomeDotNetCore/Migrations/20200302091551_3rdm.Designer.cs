@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ZensHomeDotNetCore;
@@ -9,9 +10,10 @@ using ZensHomeDotNetCore;
 namespace ZensHomeDotNetCore.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200302091551_3rdm")]
+    partial class _3rdm
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,22 +21,24 @@ namespace ZensHomeDotNetCore.Migrations
                 .HasAnnotation("ProductVersion", "3.1.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("ZensHomeDotNetCore.Models.Village", b =>
+            modelBuilder.Entity("ZensHomeDotNetCore.Models.ElectricCounter", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
+                    b.Property<int>("VillageId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Village");
+                    b.HasIndex("VillageId");
+
+                    b.ToTable("ElectricCounter");
                 });
 
-            modelBuilder.Entity("ZensHomeDotNetCore.Models.VillageConsumption", b =>
+            modelBuilder.Entity("ZensHomeDotNetCore.Models.Village", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -44,23 +48,21 @@ namespace ZensHomeDotNetCore.Migrations
                     b.Property<double>("ElectricityConsumption")
                         .HasColumnType("double precision");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("Timestamp")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("VillageId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("VillageId");
-
-                    b.ToTable("VillageConsumption");
+                    b.ToTable("Village");
                 });
 
-            modelBuilder.Entity("ZensHomeDotNetCore.Models.VillageConsumption", b =>
+            modelBuilder.Entity("ZensHomeDotNetCore.Models.ElectricCounter", b =>
                 {
                     b.HasOne("ZensHomeDotNetCore.Models.Village", "Village")
-                        .WithMany()
+                        .WithMany("ElectricCounter")
                         .HasForeignKey("VillageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

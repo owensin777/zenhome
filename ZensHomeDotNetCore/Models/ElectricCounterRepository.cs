@@ -7,14 +7,11 @@ using ZensHomeDotNetCore.Data;
 
 namespace ZensHomeDotNetCore.Models
 {
-    public class ElectricCounterRepository : RepositoryBase<ElectricCounter, MyDbContext>
+    public class ElectricCounterRepository
     {
-        public ElectricCounterRepository(MyDbContext Context): base(Context)
-        { 
-           
-        }
         public Village GetVillageByCounterId(int id)
         {
+            //Call API
             throw new NotImplementedException();
         }
     }

@@ -13,24 +13,25 @@ namespace ZensHomeDotNetCore.Controllers
     public class HomeController : Controller
     {
         // GET: /<controller>/
-        private readonly IVillageRepository mVillageRepository;
-
-        public HomeController(IVillageRepository villageRepository)
+        private readonly IVillageConsumptionRepository mVillageRepository;
+        private readonly IElectricCounterRepository mElectricCounterRepository;
+        public HomeController(IVillageConsumptionRepository villageRepository, IElectricCounterRepository ElectricCounterRepository)
         {
+            mElectricCounterRepository = ElectricCounterRepository;
             mVillageRepository = villageRepository;
         }
         [HttpGet("getConsumptionReport")]
-        public IActionResult PrintConsumptionReport()
+        public IActionResult PrintConsumptionReport([FromQuery] int Duration)
         {
-            mVillageRepository.BookingVillageConsumption(0, 0);
-            mVillageRepository.GetAllVillage();
-            return Ok(mVillageRepository.GetAllVillage());
+            return Ok(mVillageRepository.GetAllVillage(Duration));
         }
 
-        public IActionResult PostElecticityConsumption()
+        public IActionResult PostElecticityConsumption([FromQuery]double ConsumptionAmount)
         {
             //Call external api to get village id
-
+            Int32.TryParse(Request.Headers["countid"], out int CounterId);
+            var Village = mElectricCounterRepository.GetVillageByCounterId(CounterId);
+            mVillageRepository.BookingVillageConsumption(Village.Id, ConsumptionAmount);
             //Post consumption entries to DB with current time and amount
             return Ok();
         }

@@ -9,8 +9,8 @@ namespace ZensHomeDotNetCore
     public class MyDbContext : DbContext
     {
         private readonly string ConnectionString;
-        public DbSet<ElectricCounter> ElectricCounter { get;set;}
-        public DbSet<Village> Village { get;set;}
+        public DbSet<VillageConsumption> VillageConsumption { get;set;}
+        public DbSet<Village> Village { get; set; }
 
         public MyDbContext(string connectionString) : base()
         {
@@ -18,5 +18,11 @@ namespace ZensHomeDotNetCore
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder.UseNpgsql(ConnectionString);
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<VillageConsumption>().HasOne(x => x.Village)
+                .WithMany()
+                .HasForeignKey(x => x.VillageId);
+        }
     }
 }
