@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 namespace ZensHomeDotNetCore.Data
 {
@@ -38,9 +39,9 @@ namespace ZensHomeDotNetCore.Data
             return await context.Set<TEntity>().FindAsync(id);
         }
 
-        public async Task<List<TEntity>> GetAll()
+        public IQueryable<TEntity> GetAll()
         {
-            return await context.Set<TEntity>().ToListAsync();
+            return context.Set<TEntity>().AsQueryable();
         }
 
         public async Task<TEntity> Update(TEntity entity)

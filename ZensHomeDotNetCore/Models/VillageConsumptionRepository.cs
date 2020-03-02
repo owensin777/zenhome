@@ -24,8 +24,12 @@ namespace ZensHomeDotNetCore.Models
 
         public IEnumerable<object> GetAllVillage(int Duration)
         {
-            List <VillageConsumption> villageConsumptions = this.GetAll().Result.AsQueryable().Where(x => x.Timestamp > DateTime.Now.AddHours(-Duration)).Include(x => x.Village).ToList();
-            return villageConsumptions.Select(x => new { village_name = x.Village.Name, consumption = x.ElectricityConsumption });
+            List <VillageConsumption> villageConsumptions = this.GetAll().Include(x => x.Village).Where(x => x.Timestamp > DateTime.Now.AddHours(-Duration)).ToList();
+            return villageConsumptions.GroupBy(y=>y.Village.Name)
+                .Select(x => new { 
+                    village_name = x.First().Village.Name, 
+                    consumption = x.Sum(y=>y.ElectricityConsumption) 
+                });
         }
     }
 }
