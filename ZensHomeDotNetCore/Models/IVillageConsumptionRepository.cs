@@ -10,7 +10,7 @@ namespace ZensHomeDotNetCore.Models
     {
         //VillageConsumption GetVillageById(int Dd);
 
-        IEnumerable<VillageConsumption> GetAllVillage(int Duration);
+        IEnumerable<object> GetAllVillage(int Duration);
 
         void BookingVillageConsumption(int VillageId, double ConsumptionAmount);
     }

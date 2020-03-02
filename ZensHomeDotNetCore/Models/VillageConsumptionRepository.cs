@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ZensHomeDotNetCore.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace ZensHomeDotNetCore.Models
 {
@@ -21,14 +22,10 @@ namespace ZensHomeDotNetCore.Models
         }
 
 
-        IEnumerable<VillageConsumption> IVillageConsumptionRepository.GetAllVillage(int Duration)
+        public IEnumerable<object> GetAllVillage(int Duration)
         {
-            return this.GetAll().Result.Where(x=>x.Timestamp> DateTime.Now.AddHours(-Duration));
+            List <VillageConsumption> villageConsumptions = this.GetAll().Result.AsQueryable().Where(x => x.Timestamp > DateTime.Now.AddHours(-Duration)).Include(x => x.Village).ToList();
+            return villageConsumptions.Select(x => new { village_name = x.Village.Name, consumption = x.ElectricityConsumption });
         }
-
-        //VillageConsumption IVillageConsumptionRepository.GetVillageById(int id)
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }

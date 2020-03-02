@@ -2,7 +2,7 @@
 
 namespace ZensHomeDotNetCore.Migrations
 {
-    public partial class _3rdm : Migration
+    public partial class _6th : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

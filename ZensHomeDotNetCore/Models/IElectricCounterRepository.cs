@@ -6,8 +6,8 @@ using ZensHomeDotNetCore.Data;
 
 namespace ZensHomeDotNetCore.Models
 {
-    public interface IElectricCounterRepository: IRepository<ElectricCounter>
+    public interface IElectricCounterRepository
     {
-        Village GetVillageByCounterId(int id);
+        Task<Village> GetVillageByCounterIdAsync(int Id);
     }
 }

@@ -13,25 +13,25 @@ namespace ZensHomeDotNetCore.Controllers
     public class HomeController : Controller
     {
         // GET: /<controller>/
-        private readonly IVillageConsumptionRepository mVillageRepository;
+        private readonly IVillageConsumptionRepository mVillageConsumptionRepository;
         private readonly IElectricCounterRepository mElectricCounterRepository;
-        public HomeController(IVillageConsumptionRepository villageRepository, IElectricCounterRepository ElectricCounterRepository)
+        public HomeController(IVillageConsumptionRepository villageConsumptionRepository, IElectricCounterRepository ElectricCounterRepository)
         {
             mElectricCounterRepository = ElectricCounterRepository;
-            mVillageRepository = villageRepository;
+            mVillageConsumptionRepository = villageConsumptionRepository;
         }
         [HttpGet("getConsumptionReport")]
         public IActionResult PrintConsumptionReport([FromQuery] int Duration)
         {
-            return Ok(mVillageRepository.GetAllVillage(Duration));
+            return Ok(mVillageConsumptionRepository.GetAllVillage(Duration));
         }
-
+        [HttpPost("bookelectricityconsumption")]
         public IActionResult PostElecticityConsumption([FromQuery]double ConsumptionAmount)
         {
             //Call external api to get village id
-            Int32.TryParse(Request.Headers["countid"], out int CounterId);
-            var Village = mElectricCounterRepository.GetVillageByCounterId(CounterId);
-            mVillageRepository.BookingVillageConsumption(Village.Id, ConsumptionAmount);
+            Int32.TryParse(Request.Headers["counterid"], out int CounterId);
+            var Village = mElectricCounterRepository.GetVillageByCounterIdAsync(CounterId).Result;
+            mVillageConsumptionRepository.BookingVillageConsumption(Village.Id, ConsumptionAmount);
             //Post consumption entries to DB with current time and amount
             return Ok();
         }

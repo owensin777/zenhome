@@ -10,8 +10,8 @@ using ZensHomeDotNetCore;
 namespace ZensHomeDotNetCore.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20200227085511_1stmig")]
-    partial class _1stmig
+    [Migration("20200302113522_6th")]
+    partial class _6th
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,32 +21,12 @@ namespace ZensHomeDotNetCore.Migrations
                 .HasAnnotation("ProductVersion", "3.1.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("ZensHomeDotNetCore.Models.ElectricCounter", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int?>("VillageId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("VillageId");
-
-                    b.ToTable("ElectricCounter");
-                });
-
             modelBuilder.Entity("ZensHomeDotNetCore.Models.Village", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<double>("ElectricityConsumption")
-                        .HasColumnType("double precision");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -56,11 +36,36 @@ namespace ZensHomeDotNetCore.Migrations
                     b.ToTable("Village");
                 });
 
-            modelBuilder.Entity("ZensHomeDotNetCore.Models.ElectricCounter", b =>
+            modelBuilder.Entity("ZensHomeDotNetCore.Models.VillageConsumption", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<double>("ElectricityConsumption")
+                        .HasColumnType("double precision");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("VillageId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VillageId");
+
+                    b.ToTable("VillageConsumption");
+                });
+
+            modelBuilder.Entity("ZensHomeDotNetCore.Models.VillageConsumption", b =>
                 {
                     b.HasOne("ZensHomeDotNetCore.Models.Village", "Village")
-                        .WithMany("ElectricCounter")
-                        .HasForeignKey("VillageId");
+                        .WithMany("VillageConsumption")
+                        .HasForeignKey("VillageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

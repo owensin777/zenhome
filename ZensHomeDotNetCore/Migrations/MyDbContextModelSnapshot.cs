@@ -60,7 +60,7 @@ namespace ZensHomeDotNetCore.Migrations
             modelBuilder.Entity("ZensHomeDotNetCore.Models.VillageConsumption", b =>
                 {
                     b.HasOne("ZensHomeDotNetCore.Models.Village", "Village")
-                        .WithMany()
+                        .WithMany("VillageConsumption")
                         .HasForeignKey("VillageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

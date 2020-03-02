@@ -50,5 +50,6 @@ C:\Users\Larry\source\repos\ZensHomeDotNetCore\ZensHomeDotNetCore\obj\Debug\netc
 C:\Users\Larry\source\repos\ZensHomeDotNetCore\ZensHomeDotNetCore\obj\Debug\netcoreapp3.1\ZensHomeDotNetCore.csproj.CopyComplete
 C:\Users\Larry\source\repos\ZensHomeDotNetCore\ZensHomeDotNetCore\obj\Debug\netcoreapp3.1\ZensHomeDotNetCore.dll
 C:\Users\Larry\source\repos\ZensHomeDotNetCore\ZensHomeDotNetCore\obj\Debug\netcoreapp3.1\ZensHomeDotNetCore.pdb
-C:\Users\Larry\source\repos\ZensHomeDotNetCore\ZensHomeDotNetCore\obj\Debug\netcoreapp3.1\ZensHomeDotNetCore.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Larry\source\repos\ZensHomeDotNetCore\ZensHomeDotNetCore\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\Larry\source\repos\ZensHomeDotNetCore\ZensHomeDotNetCore\obj\Debug\netcoreapp3.1\ZensHomeDotNetCore.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Larry\source\repos\ZensHomeDotNetCore\ZensHomeDotNetCore\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll

@@ -36,6 +36,7 @@ namespace ZensHomeDotNetCore
             var dbConnectionString = configuration.GetConnectionString("MyDb");
             services.AddScoped<string>(_ => dbConnectionString);
             services.AddScoped<IVillageConsumptionRepository, VillageConsumptionRepository>();
+            services.AddScoped<IElectricCounterRepository, ElectricCounterRepository>();
             services.AddControllersWithViews();
             services.AddDbContext<MyDbContext>(options =>
                 options.UseNpgsql(dbConnectionString));
